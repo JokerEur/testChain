@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/ivanvologin/Documents/workspace/pet/SDLGame/build",
+  "command": "/usr/local/bin/g++-12  -I/Users/ivanvologin/Documents/workspace/pet/SDLGame/include,vcpkg_installed/x64-osx/include -isystem /Users/ivanvologin/Documents/workspace/pet/SDLGame/vcpkg_installed/x64-osx/include -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6   -Wno-deprecated-declarations -std=gnu++20 -o CMakeFiles/BC.dir/main.cpp.o -c /Users/ivanvologin/Documents/workspace/pet/SDLGame/main.cpp",
+  "file": "/Users/ivanvologin/Documents/workspace/pet/SDLGame/main.cpp"
+}
+]

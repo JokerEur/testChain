@@ -1,0 +1,6 @@
+{
+    "name" : "sdl",
+    "version" : "0.0.1",
+    "dependencies" : [ "nlohmann-json", "openssl" ,"boost"]
+
+}

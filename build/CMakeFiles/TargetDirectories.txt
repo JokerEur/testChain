@@ -1,0 +1,3 @@
+/Users/ivanvologin/Documents/workspace/pet/SDLGame/build/CMakeFiles/BC.dir
+/Users/ivanvologin/Documents/workspace/pet/SDLGame/build/CMakeFiles/edit_cache.dir
+/Users/ivanvologin/Documents/workspace/pet/SDLGame/build/CMakeFiles/rebuild_cache.dir
