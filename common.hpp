@@ -6,7 +6,7 @@
 #include <memory>
 #include <stdexcept>
 
-
+#include "include/Hash.hpp"
 
 void print_hex(const char *label, const uint8_t *v, size_t len) {
     size_t i;
@@ -45,6 +45,7 @@ std::string getMerkleRoot(const std::vector<std::string> &merkle) {
     return new_merkle.at(0);
 
 }
+
 std::pair<std::string,std::string> findHash(uint64_t index, std::string prevHash, std::vector<std::string> &merkle) {
     std::string header = std::to_string(index) + prevHash + getMerkleRoot(merkle);
     unsigned int nonce;

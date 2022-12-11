@@ -11,14 +11,12 @@
 #include "include/Block.hpp"
 #include "common.hpp"
 #include "include/BlockChain.hpp"
-#include "requests.hpp"
+#include "net/requests.hpp"
 
 using json = nlohmann::json;
 
-using namespace std;
-
-#include "client_http.hpp"
-#include "server_http.hpp"
+#include "net/client_http.hpp"
+#include "net/server_http.hpp"
 
 using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 using HttpClient = SimpleWeb::Client<SimpleWeb::HTTP>;
@@ -33,12 +31,12 @@ int main() {
 
     // Set up ports
 
-    int port;
+    int port{};
     printf("Enter port: ");
     scanf("%d",&port); 
     server.config.port = port; //server port
     
-    vector<int> listOfNodes; //vector of the ports of nodes in the network
+    std::vector<int> listOfNodes; //vector of the ports of nodes in the network
     
     // BLOCK CHAIN INITIALIZATION AND ADDING SELF TO NETWORK
     
@@ -46,6 +44,7 @@ int main() {
     printf("Are you the initial Node? (y or n) ");
     scanf(" %c",&ch);
     BlockChain bc;
+    
     if (ch == 'y'){
         // Initial Node: setup Blockchain with genesis block
         bc = BlockChain(0);
@@ -57,21 +56,21 @@ int main() {
         // Example input: 8000,3000,3030
         printf("Enter ports of nodes in network(with commas in between): ");
         scanf("%s",otherPorts);
-        stringstream ss(otherPorts);
-        int i;
+        std::stringstream ss(otherPorts);
+        int i{};
         // parse string of nodes and add them to listOfNoes
-        while (ss >> i)
-        {
+        while (ss >> i){
             listOfNodes.push_back(i);
             if (ss.peek() == ',' || ss.peek() == ' ')
                 ss.ignore();
         }
+
         addSelfToNetwork(&listOfNodes,server.config.port);
         json chain = getChainFromNodes(&listOfNodes);
         //skips first block - same genesis block across all nodes
         for (int a = 1; a <chain["length"].get<int>(); a++ ){
             auto block = chain["data"][a];
-            vector<string> data = block["data"].get<vector<string> >();
+            std::vector<std::string> data = block["data"].get<std::vector<std::string> >();
             bc.addBlock(block["index"],block["previousHash"],block["hash"],block["nonce"],data);
         } 
     }
@@ -111,7 +110,7 @@ int main() {
      * if it is bigger -> replace chain, else don't do anything
     */
     server.resource["^/newchain$"]["POST"] = [&bc](shared_ptr<HttpServer::Response> response, shared_ptr<HttpServer::Request> request) {
-        cout << "POST /newchain --- Node in Network sent new chain\n";
+        std::cout << "POST /newchain --- Node in Network sent new chain\n";
         try {
             json content = json::parse(request->content);
             if (content["length"].get<int>() > bc.getNumOfBlocks()){
@@ -120,7 +119,7 @@ int main() {
                 response->write("Replaced Chain\n");
             }
             else {
-                cout << "----Chain was not replaced: sent chain had same size" <<endl;
+                std::cout << "----Chain was not replaced: sent chain had same size" <<endl;
                 response->write("Same Chain Size -- invalid");
             }
         }
@@ -132,22 +131,24 @@ int main() {
     // On error lambda function
     server.on_error = [](shared_ptr<HttpServer::Request> /*request*/, const SimpleWeb::error_code & ec) {
         if (ec.message() != "End of file") {
-            cout << "SERVER ERROR: " << ec.message() << endl;
+            std:cout << "SERVER ERROR: " << ec.message() << std::endl;
         }
       };
     printf("Starting server at %d",server.config.port);
 
     // start server
-    thread server_thread([&server]() {
+    std::thread server_thread([&server]() {
         server.start();
     });
     
     //COMMAND LINE INTERFACE
 
     // loop for 20 inputs - can change
-    for ( int i = 0; i < 20; i++ ) {
-        vector<string> v;
-        int temp;
+    for(ptrdiff_t i {0}; i < 20; ++i) {
+
+        std::vector<std::string> v{};
+        int temp{}; 
+
         // ask for what to do
         printf("\n(1) Look at Blocks \n(2) Add block\n");
         int valid = scanf("%d",&temp);
@@ -159,14 +160,14 @@ int main() {
                 bc.getBlock(temp).toString();
             }
             catch (const exception& e){
-                cout << e.what() << endl;
+                std::cout << e.what() << std::endl;
             }
         }
         else if (temp == 2){ // add a new block if 2
             char tmp[201];
             printf("\nADDING BLOCKS!\nEnter your message: ");
             scanf("%200s",tmp);
-            string str = tmp;
+            std::string str = tmp;
             printf("Entered '%s' into block\n",str.c_str());
             v.push_back(str);
 
@@ -179,7 +180,8 @@ int main() {
                     printf("----------------------------------\nPlease join the network... Your blockchain doesn't have any blocks ");
                     continue;
                 }
-                // mine for the has
+
+                // mine for the hash
                 auto pair = findHash(bc.getNumOfBlocks(),bc.getLastBlockHash(),v);
                 // add the block to the blockchain
                 bc.addBlock(bc.getNumOfBlocks(),bc.getLastBlockHash(),pair.first,pair.second,v );
@@ -187,7 +189,7 @@ int main() {
                 sendNewChain(&listOfNodes,bc.toJSON());
             }
             catch (const exception& e) {
-                cout << e.what() << "\n" << endl;
+                std::cout << e.what() << "\n" << endl;
             }
         }
     }

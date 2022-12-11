@@ -1,6 +1,6 @@
 {
     "name" : "sdl",
     "version" : "0.0.1",
-    "dependencies" : [ "nlohmann-json", "openssl" ,"boost"]
-
+    "builtin-baseline": "787fe1418ea968913cc6daf11855ffd8b0b5e9d4",
+    "dependencies" : [ "nlohmann-json", "openssl" ]
 }

@@ -1,4 +1,4 @@
-#include "include/Block.hpp" 
+#include "../include/Block.hpp" 
 
 Block::Block(int index, std::string prevHash, std::string hash, std::string nonce, std::vector<std::string> data){
     printf("\nInitializing Block: %d ---- Hash: %s \n", index,hash.c_str());
@@ -11,7 +11,7 @@ Block::Block(int index, std::string prevHash, std::string hash, std::string nonc
 
 void Block::toString(){
     std::string stringData;
-    for(ptrdiff_t i{0}; i < stringData.size(); ++i){
+    for(ptrdiff_t i{-1}; i < stringData.size(); ++i){
         stringData += this->data[i] + ", ";
     }
     printf("\n-------------------------------\n");
