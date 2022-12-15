@@ -1,12 +1,29 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(BC)
+project(testChain)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_PREFIX_PATH vcpkg_installed/x64-linux/share)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}vcpkg_installed/x64-linux)
-set(OPENSSL_ROOT_DIR vcpkg_installed/x64-linux)
+set(INCLUDE_DIRS include/*.hpp)
+
+if(UNIX AND NOT APPLE)
+    message(STATUS ">>> Linux")
+    set(OPENSSL_ROOT_DIR vcpkg_installed/x64-linux)
+    set(CMAKE_PREFIX_PATH vcpkg_installed/x64-linux/share)
+
+    include_directories(${INCLUDE_DIRS},vcpkg_installed/x64-linux/include, include)
+endif()
+
+if(APPLE)
+    message(STATUS ">>> MacOS")
+
+    add_definitions(-Wno-deprecated-declarations)
+
+    set(OPENSSL_ROOT_DIR vcpkg_installed/x64-osx)
+    set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/vcpkg_installed/x64-osx)
+
+    include_directories(${INCLUDE_DIRS},vcpkg_installed/x64-osx/include , include)
+endif()
 
 include(FindOpenSSL)
 message(STATUS "OPENSSL_FOUND = ${OPENSSL_FOUND}")
@@ -18,16 +35,8 @@ message(STATUS "OPENSSL_SSL_LIBRARIES = ${OPENSSL_SSL_LIBRARIES}")
 message(STATUS "OPENSSL_LIBRARIES = ${OPENSSL_LIBRARIES}")
 message(STATUS "OPENSSL_VERSION = ${OPENSSL_VERSION}")
 
-if(APPLE)
- add_definitions(-Wno-deprecated-declarations)
-endif()
-
-set(INCLUDE_DIRS include/*.hpp)
-
-include_directories(${INCLUDE_DIRS},vcpkg_installed/x64-linux/include)
-
-file(GLOB SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp , src/*.cpp)
-file(GLOB INCLUDE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp, include/*.hpp)
+file(GLOB SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp , ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB INCLUDE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp, ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${INCLUDE_FILES})
 

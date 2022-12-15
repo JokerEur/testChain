@@ -1,17 +1,17 @@
 [
 {
   "directory": "/home/ivan/Documents/workspace/testChain/build",
-  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include\" -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/BC.dir/main.cpp.o -c /home/ivan/Documents/workspace/testChain/main.cpp",
+  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include,\" -I/home/ivan/Documents/workspace/testChain/include -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/testChain.dir/main.cpp.o -c /home/ivan/Documents/workspace/testChain/main.cpp",
   "file": "/home/ivan/Documents/workspace/testChain/main.cpp"
 },
 {
   "directory": "/home/ivan/Documents/workspace/testChain/build",
-  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include\" -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/BC.dir/src/Block.cpp.o -c /home/ivan/Documents/workspace/testChain/src/Block.cpp",
+  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include,\" -I/home/ivan/Documents/workspace/testChain/include -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/testChain.dir/src/Block.cpp.o -c /home/ivan/Documents/workspace/testChain/src/Block.cpp",
   "file": "/home/ivan/Documents/workspace/testChain/src/Block.cpp"
 },
 {
   "directory": "/home/ivan/Documents/workspace/testChain/build",
-  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include\" -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/BC.dir/src/BlockChain.cpp.o -c /home/ivan/Documents/workspace/testChain/src/BlockChain.cpp",
+  "command": "/bin/g++ -DJSON_USE_IMPLICIT_CONVERSIONS=1 -I\"/home/ivan/Documents/workspace/testChain/include/*.hpp,vcpkg_installed/x64-linux/include,\" -I/home/ivan/Documents/workspace/testChain/include -isystem /home/ivan/Documents/workspace/testChain/vcpkg_installed/x64-linux/include -g -std=gnu++20 -o CMakeFiles/testChain.dir/src/BlockChain.cpp.o -c /home/ivan/Documents/workspace/testChain/src/BlockChain.cpp",
   "file": "/home/ivan/Documents/workspace/testChain/src/BlockChain.cpp"
 }
 ]
